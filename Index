@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPS Insurance — Saúde Nacional e Internacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#151C2E;
+    --navy-panel:#1B233A;
+    --navy-panel-2:#202A44;
+    --gold:#B08D4C;
+    --gold-soft:rgba(176,141,76,0.35);
+    --cream:#F5F0E6;
+    --cream-dim:#E7E0D0;
+    --graphite:#8B92A3;
+    --graphite-on-cream:#5A5A5A;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 8%;
+  }
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;
+    height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .9s ease, transform .9s ease;
+    }
+    .reveal.in{opacity:1; transform:translateY(0);}
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(21,28,46,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(176,141,76,0.18);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:18px 8%;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand-wordmark{
+    font-family:'Playfair Display',serif;
+    font-size:19px; letter-spacing:0.04em; font-weight:600;
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .brand-wordmark span.ins{
+    font-family:'Inter',sans-serif; font-weight:500;
+    font-size:11px; letter-spacing:0.28em; color:var(--graphite);
+    text-transform:uppercase; padding-left:10px; border-left:1px solid var(--gold);
+  }
+  .nav-cta{
+    border:1px solid var(--gold);
+    color:var(--cream);
+    font-size:13px; font-weight:500;
+    padding:10px 22px;
+    border-radius:2px;
+    transition:background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--gold); color:var(--navy);}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding:168px 0 120px;
+    overflow:hidden;
+  }
+  .compass-line{
+    position:absolute;
+    top:-10%; right:-6%;
+    width:640px; height:640px;
+    border:1px solid rgba(176,141,76,0.14);
+    border-radius:50%;
+  }
+  .compass-line::before{
+    content:"";
+    position:absolute; inset:70px;
+    border:1px solid rgba(176,141,76,0.10);
+    border-radius:50%;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:64px;
+    align-items:center;
+    position:relative;
+  }
+  .hero h1{
+    font-size:clamp(34px, 4.6vw, 56px);
+    margin:22px 0 26px;
+    max-width:15ch;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--gold);
+  }
+  .hero p.lede{
+    font-size:17px;
+    color:var(--graphite);
+    max-width:46ch;
+    margin-bottom:38px;
+  }
+  .cta-row{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:600;
+    font-size:14.5px;
+    padding:16px 30px;
+    border-radius:2px;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 0 0 rgba(176,141,76,0);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 26px -8px rgba(176,141,76,0.45);}
+  .cta-note{font-size:12.5px; color:var(--graphite);}
+  .hero-emblem{
+    position:relative;
+    display:flex; justify-content:center; align-items:center;
+  }
+  .hero-emblem img{
+    width:min(320px, 80%);
+    filter:drop-shadow(0 30px 60px rgba(0,0,0,0.35));
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:104px 0;}
+  .section-cream{background:var(--cream); color:var(--navy);}
+  .section-cream .eyebrow{color:var(--gold);}
+  .section-cream p{color:var(--graphite-on-cream);}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px); margin-top:18px;}
+
+  /* ---------- PROBLEM SECTION ---------- */
+  .problem-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:52px;
+    align-items:start;
+  }
+  .problem-grid p{font-size:16.5px; color:var(--graphite); max-width:52ch;}
+  .quote-block{
+    border-left:2px solid var(--gold);
+    padding-left:26px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:22px;
+    line-height:1.5;
+    color:var(--cream);
+  }
+
+  /* ---------- COMPARATIVO ---------- */
+  .compare-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:rgba(21,28,46,0.08);
+    border:1px solid rgba(21,28,46,0.1);
+  }
+  .compare-card{
+    background:var(--cream);
+    padding:44px 40px;
+  }
+  .compare-card.dark{
+    background:var(--navy);
+    color:var(--cream);
+  }
+  .compare-card h3{font-size:22px; margin-bottom:22px; color:var(--navy);}
+  .compare-card.dark h3{color:var(--cream);}
+  .compare-card ul{list-style:none;}
+  .compare-card li{
+    font-size:14.5px;
+    padding:11px 0;
+    border-bottom:1px solid rgba(90,90,90,0.14);
+    display:flex; gap:10px;
+    color:var(--graphite-on-cream);
+  }
+  .compare-card.dark li{
+    border-bottom:1px solid rgba(245,240,230,0.1);
+    color:var(--graphite);
+  }
+  .compare-card li::before{content:"—"; color:var(--gold); flex-shrink:0;}
+  .compare-card li:last-child{border-bottom:none;}
+
+  /* ---------- OPERADORAS ---------- */
+  .operators{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:rgba(176,141,76,0.15);
+    border:1px solid rgba(176,141,76,0.15);
+  }
+  .operator{
+    background:var(--navy);
+    padding:30px 26px;
+  }
+  .operator .name{
+    font-family:'Playfair Display',serif;
+    font-size:18px;
+    margin-bottom:8px;
+  }
+  .operator .desc{font-size:13px; color:var(--graphite); line-height:1.55;}
+  .verify-note{
+    margin-top:26px;
+    font-size:11.5px;
+    color:var(--graphite);
+    letter-spacing:0.02em;
+  }
+  .verify-note .tag{
+    color:var(--gold);
+    font-weight:600;
+    letter-spacing:0.1em;
+  }
+
+  /* ---------- ICP ---------- */
+  .icp-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .icp-card{
+    background:var(--navy-panel);
+    border:1px solid rgba(176,141,76,0.16);
+    padding:38px 32px;
+    border-radius:2px;
+  }
+  .icp-card .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold);
+    margin-bottom:20px;
+    display:block;
+  }
+  .icp-card h3{font-size:20px; margin-bottom:14px; color:var(--cream);}
+  .icp-card p{font-size:14px; color:var(--graphite); margin-bottom:0;}
+
+  /* ---------- PROCESSO (signature: linha de rota) ---------- */
+  .process{position:relative;}
+  .process-list{
+    position:relative;
+    padding-left:46px;
+  }
+  .process-list::before{
+    content:"";
+    position:absolute; left:9px; top:6px; bottom:6px;
+    width:1px;
+    background:linear-gradient(to bottom, var(--gold), rgba(176,141,76,0.15));
+  }
+  .process-step{
+    position:relative;
+    padding-bottom:52px;
+  }
+  .process-step:last-child{padding-bottom:0;}
+  .process-step::before{
+    content:"";
+    position:absolute; left:-46px; top:4px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 4px var(--navy), 0 0 0 5px rgba(176,141,76,0.3);
+  }
+  .process-step .step-label{
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:8px; display:block;
+  }
+  .process-step h3{font-size:20px; margin-bottom:8px;}
+  .process-step p{font-size:14.5px; color:var(--graphite); max-width:48ch;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center;
+    padding:120px 0 130px;
+    position:relative;
+  }
+  .final-cta h2{
+    font-size:clamp(28px,4vw,44px);
+    max-width:16ch;
+    margin:20px auto 20px;
+  }
+  .final-cta p{
+    color:var(--graphite);
+    max-width:44ch;
+    margin:0 auto 40px;
+    font-size:16px;
+  }
+  .final-cta .eyebrow{justify-content:center;}
+  .final-cta .eyebrow::before{display:none;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid rgba(176,141,76,0.14);
+    padding:44px 0;
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+  }
+  footer p{font-size:12px; color:var(--graphite);}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr; text-align:left;}
+    .hero-emblem{order:-1; margin-bottom:20px;}
+    .hero-emblem img{width:180px;}
+    .problem-grid{grid-template-columns:1fr;}
+    .compare-cards{grid-template-columns:1fr;}
+    .operators{grid-template-columns:1fr;}
+    .icp-grid{grid-template-columns:1fr;}
+    .wrap{padding:0 6%;}
+    section{padding:72px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand-wordmark">GPS<span class="ins">Insurance</span></div>
+    <a class="nav-cta" href="https://wa.me/[EDITAR]" target="_blank" rel="noopener">Falar com especialista</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="compass-line" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Saúde Nacional &amp; Internacional</span>
+      <h1>Seu plano cobre o Brasil. <em>E fora dele?</em></h1>
+      <p class="lede">Comparamos as principais operadoras nacionais e internacionais para o seu perfil real — antes que os limites do seu plano apareçam no pior momento possível.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="https://wa.me/[EDITAR]" target="_blank" rel="noopener">Falar com um especialista →</a>
+      </div>
+    </div>
+    <div class="hero-emblem">
+      <img src="d_escudo_v2.png" alt="Emblema GPS Insurance">
+    </div>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="wrap problem-grid">
+    <div>
+      <span class="eyebrow">O que a maioria descobre tarde demais</span>
+      <h2 style="margin-top:18px; font-size:clamp(26px,3.2vw,36px);">Rede de excelência aqui e fora do Brasil.</h2>
+    </div>
+    <div>
+      <p>A maioria dos planos nacionais para de existir na saída do avião. Quem viaja, mora fora ou tem a família espalhada entre fusos horários costuma assumir que está coberto — até precisar de um atendimento fora do Brasil e descobrir, na prática, o que o contrato nunca deixou claro.</p>
+      <div class="quote-block" style="margin-top:28px;">Proteção não é sobre o pior cenário — é sobre nunca ser pego de surpresa por ele.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section-cream reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Comparativo</span>
+      <h2>Nacional e internacional não competem — se complementam.</h2>
+    </div>
+    <div class="compare-cards">
+      <div class="compare-card">
+        <h3>Plano de Saúde Nacional</h3>
+        <ul>
+          <li>Acesso a hospitais e rede de referência dentro do Brasil</li>
+          <li>Resolutivo para o dia a dia e emergências locais</li>
+          <li>Cobertura geográfica limitada às condições contratadas</li>
+          <li>Reembolso internacional, quando existe, costuma ser parcial</li>
+        </ul>
+      </div>
+      <div class="compare-card dark">
+        <h3>Plano de Saúde Internacional</h3>
+        <ul>
+          <li>Acesso a centros médicos de referência fora do país</li>
+          <li>Cobertura desenhada para quem viaja, mora ou estuda no exterior</li>
+          <li>Atendimento em rede global, sem depender de reembolso</li>
+          <li>Pode ser combinado ao plano nacional, sem sobreposição de custo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Curadoria multi-operadora</span>
+      <h2>Comparamos entre as principais operadoras do mercado.</h2>
+    </div>
+    <div class="operators">
+      <div class="operator">
+        <div class="name">VUMI</div>
+        <div class="desc">Saúde internacional para quem vive ou viaja com frequência entre países.</div>
+      </div>
+      <div class="operator">
+        <div class="name">BUPA</div>
+        <div class="desc">Referência internacional, forte presença entre expatriados e executivos globais.</div>
+      </div>
+      <div class="operator">
+        <div class="name">AXA Global Healthcare</div>
+        <div class="desc">Cobertura internacional robusta, estrutura multinacional consolidada.</div>
+      </div>
+      <div class="operator">
+        <div class="name">OMINT</div>
+        <div class="desc">Alto padrão nacional, hospitais de referência e atendimento diferenciado.</div>
+      </div>
+      <div class="operator">
+        <div class="name">Care Plus</div>
+        <div class="desc">Alto padrão nacional com rede premium, foco em público executivo.</div>
+      </div>
+      <div class="operator">
+        <div class="name">Einstein Saúde</div>
+        <div class="desc">Associado à excelência hospitalar do Hospital Albert Einstein.</div>
+      </div>
+      <div class="operator">
+        <div class="name">AMIL</div>
+        <div class="desc">Rede ampla nacional, solidez e capilaridade de atendimento.</div>
+      </div>
+      <div class="operator">
+        <div class="name">SulAmérica</div>
+        <div class="desc">Tradição e ampla aceitação no mercado nacional de saúde.</div>
+      </div>
+      <div class="operator">
+        <div class="name">Bradesco Saúde</div>
+        <div class="desc">Solidez de grande grupo financeiro, rede nacional consolidada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-cream reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Para quem é</span>
+      <h2>Seletivo por desenho, não por acaso.</h2>
+    </div>
+    <div class="icp-grid">
+      <div class="icp-card">
+        <span class="num">Perfil I</span>
+        <h3>O Empresário</h3>
+        <p>Patrimônio pessoal e empresarial que precisam de uma visão sistêmica de risco — não apenas de mais uma apólice.</p>
+      </div>
+      <div class="icp-card">
+        <span class="num">Perfil II</span>
+        <h3>O Médico</h3>
+        <p>Rotina intensa, pouco tempo para revisar letras miúdas — e a expectativa de uma rede à altura fora do Brasil também.</p>
+      </div>
+      <div class="icp-card">
+        <span class="num">Perfil III</span>
+        <h3>A Família com Mobilidade Internacional</h3>
+        <p>Filhos estudando fora, segunda residência ou rotina entre países — e a necessidade de um único ponto de contato.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Diagnóstico completo das suas necessidades.</h2>
+    </div>
+    <div class="process-list">
+      <div class="process-step">
+        <span class="step-label">01 — Diagnóstico</span>
+        <h3>Entendemos o seu cenário real</h3>
+        <p>Levantamento de rotina, mobilidade internacional e o que o plano atual efetivamente cobre — sem custo, sem compromisso.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-label">02 — Comparativo</span>
+        <h3>Comparamos as operadoras relevantes</h3>
+        <p>Apresentamos as opções nacionais e internacionais compatíveis com o seu perfil, com trade-offs explicados com clareza.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-label">03 — Decisão</span>
+        <h3>Você decide no seu tempo</h3>
+        <p>Sem pressão de fechamento. A decisão é sua, com todas as informações necessárias em mãos.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-label">04 — Acompanhamento</span>
+        <h3>Revisão contínua, não pontual</h3>
+        <p>Acompanhamento ativo da cobertura contratada, com revisão proativa a cada ciclo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta reveal">
+  <div class="wrap">
+    <span class="eyebrow">Vamos ver o seu caso?</span>
+    <h2>Poucas famílias revisam isso a tempo.</h2>
+    <p>Fale com um especialista e entenda, em uma conversa objetiva, o que o seu plano atual cobre — e o que não cobre — fora do Brasil.</p>
+    <a class="btn-primary" href="https://wa.me/[EDITAR]" target="_blank" rel="noopener">Falar com um especialista →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="brand-wordmark" style="font-size:15px;">GPS<span class="ins" style="font-size:9px;">Insurance</span></div>
+    <p>© 2026 GPS Insurance. Curadoria consultiva de proteção patrimonial e saúde premium.</p>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
